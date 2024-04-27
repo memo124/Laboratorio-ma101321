@@ -1,0 +1,74 @@
+﻿@model MA101321.Models.libro
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+<h4>libro</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="titulo" class="control-label"></label>
+                <input asp-for="titulo" class="form-control" />
+                <span asp-validation-for="titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isbn" class="control-label"></label>
+                <input asp-for="isbn" class="form-control" />
+                <span asp-validation-for="isbn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="anio_edicion" class="control-label"></label>
+                <input asp-for="anio_edicion" class="form-control" />
+                <span asp-validation-for="anio_edicion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="editorial" class="control-label"></label>
+                <input asp-for="editorial" class="form-control" />
+                <span asp-validation-for="editorial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="descripcion" class="control-label"></label>
+                <input asp-for="descripcion" class="form-control" />
+                <span asp-validation-for="descripcion" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <label asp-for="id_autor" class="control-label">Selecciona un autor:</label>
+                    @if (ViewBag?.Autores != null)
+                    {
+                        <select asp-for="id_autor" class="form-control" asp-items="ViewBag?.Autores"></select>
+                    }
+                </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>
