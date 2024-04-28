@@ -1,4 +1,4 @@
-﻿@model MA101321.Models.autor
+﻿@model MA101321.Models.libro
 
 @{
     Layout = null;
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Autor</title>
+    <title>Eliminar Libro</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,9 +62,9 @@
 </head>
 <body>
     <div class="container">
-        <h3>¿Estás seguro de que deseas eliminar este autor?</h3>
+        <h3>¿Estás seguro de que deseas eliminar esto?</h3>
         <div>
-            <h4>Autor</h4>
+            <h4>Libro</h4>
             <hr />
             <dl class="row">
                 <dt class="col-sm-2">
@@ -74,22 +74,40 @@
                     @Html.DisplayFor(model => model.Id)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.nombre)
+                    @Html.DisplayNameFor(model => model.titulo)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.nombre)
+                    @Html.DisplayFor(model => model.titulo)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.apellido)
+                    @Html.DisplayNameFor(model => model.isbn)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.apellido)
+                    @Html.DisplayFor(model => model.isbn)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.nacionalidad)
+                    @Html.DisplayNameFor(model => model.anio_edicion)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.nacionalidad)
+                    @Html.DisplayFor(model => model.anio_edicion)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.editorial)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.editorial)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.descripcion)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.descripcion)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Autor)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Autor.nombre) @Html.DisplayFor(model => model.Autor.apellido)
                 </dd>
             </dl>
 

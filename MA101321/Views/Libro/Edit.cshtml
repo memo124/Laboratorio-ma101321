@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Libro</title>
+    <title>Editar Libro</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +17,6 @@
             padding: 0;
             background-color: #f5f5f5;
         }
-
         .container {
             max-width: 600px;
             margin: 20px auto;
@@ -26,15 +25,12 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         .form-group {
             margin-bottom: 20px;
         }
-
         label {
             font-weight: bold;
         }
-
         input[type="text"], select {
             width: 100%;
             padding: 10px;
@@ -52,7 +48,6 @@
             box-sizing: border-box;
             font-size: 16px;
         }
-
         .btn-primary {
             background-color: #007bff;
             color: #ffffff;
@@ -63,22 +58,29 @@
             font-size: 16px;
             transition: background-color 0.3s ease;
         }
-
-            .btn-primary:hover {
-                background-color: #0056b3;
-            }
-
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
         .text-danger {
             color: #dc3545;
             font-size: 14px;
+        }
+        .form-control[readonly] {
+            background-color: #f2f2f2;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Crear Libro</h2>
-        <form asp-action="Create">
+        <h2>Editar Libro</h2>
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label">ID:</label>
+                <input asp-for="Id" class="form-control" readonly />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="titulo" class="control-label">Título:</label>
                 <input asp-for="titulo" class="form-control" />
@@ -106,14 +108,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="id_autor" class="control-label">Selecciona un autor:</label>
-                @if (ViewBag?.Autores != null)
-                {
-                    <select asp-for="id_autor" class="form-control" asp-items="ViewBag?.Autores"></select>
-                }
-                <span asp-validation-for="id_autor" class="text-danger"></span>
+                <select asp-for="id_autor" class="form-control" asp-items="ViewBag?.Autores"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
         <div>

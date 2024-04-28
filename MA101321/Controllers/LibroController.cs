@@ -11,10 +11,10 @@ namespace MA101321.Controllers
         // GET: LibroController
         public ActionResult Index()
         {
-           
+
             var listaLibros = from libro in RecuperaLibros()
-                             orderby libro.Id
-                             select libro;
+                              orderby libro.Id
+                              select libro;
             return View(listaLibros);
         }
 
@@ -27,13 +27,7 @@ namespace MA101321.Controllers
         // GET: LibroController/Create
         public ActionResult Create()
         {
-            SelectList lista;
-             using (var context = new Conexion())
-            {
-                var autores = context.autor.ToList();
-                lista = new SelectList(autores, "Id", "nombre"); 
-            }
-            ViewBag.Autores = lista;
+            GenerarCombo();
             return View();
         }
 
@@ -67,7 +61,9 @@ namespace MA101321.Controllers
         // GET: LibroController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            GenerarCombo();
+            var libro = RecuperaLibro(id);
+            return View(libro);
         }
 
         // POST: LibroController/Edit/5
@@ -77,7 +73,19 @@ namespace MA101321.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var context = new Conexion())
+                {
+                    var nuevoLibro = context.libro.Find(id);
+                    nuevoLibro.titulo = collection["titulo"];
+                    nuevoLibro.isbn = int.Parse(collection["isbn"]);
+                    nuevoLibro.anio_edicion = int.Parse(collection["anio_edicion"]);
+                    nuevoLibro.editorial = collection["editorial"];
+                    nuevoLibro.descripcion = collection["descripcion"];
+                    nuevoLibro.id_autor = int.Parse(collection["id_autor"]);
+                    context.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
             catch
             {
@@ -88,7 +96,8 @@ namespace MA101321.Controllers
         // GET: LibroController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var libro = RecuperaLibro(id);
+            return View(libro);
         }
 
         // POST: LibroController/Delete/5
@@ -98,12 +107,29 @@ namespace MA101321.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                using (var context = new Conexion())
+                {
+                    var nuevoLibro = context.libro.Find(id);
+                    context.Remove(nuevoLibro);
+                    context.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {
                 return View();
             }
+        }
+        [NonAction]
+        public void GenerarCombo()
+        {
+            SelectList lista;
+            using (var context = new Conexion())
+            {
+                var autores = context.autor.ToList();
+                lista = new SelectList(autores, "Id", "nombre");
+            }
+            ViewBag.Autores = lista;
         }
 
         [NonAction]
@@ -121,7 +147,7 @@ namespace MA101321.Controllers
         {
             using (var context = new Conexion())
             {
-                var lista = context.libro.Find(id);
+                var lista = context.libro.Where(x=>x.Id == id).Include(x => x.Autor).FirstOrDefault();
                 return lista;
             }
         }
